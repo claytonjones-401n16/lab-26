@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-export default function ToDoForm() {
-  const [ list, setList ] = useState([]);
-  const [ currentTask, setCurrentTask ] = useState('');
+export default function ToDoForm(props) {
+  const [ description, setDescription ] = useState('');
   const [ assignedTo, setAssignedTo ] = useState('');
   const [ complete, setComplete ] = useState(false);
   const [ difficulty, setDifficulty ] = useState(1);
@@ -22,10 +21,20 @@ export default function ToDoForm() {
 
   }
 
+  function updateList() {
+    let task = {
+      description,
+      assignedTo,
+      complete,
+      difficulty
+    }
+    props.setList([...props.list, task]);
+  }
+
   return (
     <div id="form">
       <label htmlFor="task">Task:</label>
-      <textarea name="task" id="task" onChange={ (e) => { setCurrentTask(e.target.value) } } value={currentTask}></textarea>
+      <textarea name="task" id="task" onChange={ (e) => { setDescription(e.target.value) } } value={description}></textarea>
 
       <label htmlFor="assigned-to">Assigned To:</label>
       <input type="text" id="assigned-to" autoComplete="off" value={assignedTo} onChange={ (e) => { setAssignedTo(e.target.value) } }/>
@@ -36,7 +45,7 @@ export default function ToDoForm() {
       <label htmlFor="difficulty">Difficulty (1-5):</label>
       <input type="number" min="1" max="5" value={difficulty} onChange={ updateDifficulty }/>
 
-      <button type="submit" >Submit</button>
+      <button type="submit" onClick={ updateList }>Submit</button>
     </div>
   )
 }
