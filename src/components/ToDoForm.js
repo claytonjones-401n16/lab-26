@@ -42,15 +42,16 @@ export default function ToDoForm(props) {
         <input type="text" id="assigned-to" autoComplete="off" value={assignedTo} onChange={ (e) => { setAssignedTo(e.target.value) } }/>
       </div>
       
-      <div className='complete-container'>
-        <label htmlFor="complete">Complete?</label>
-        <input type="checkbox" id="complete" checked={complete} onChange={ () => {setComplete(!complete)} }/>
-      </div>
-
       <div className="difficulty-container">
         <label htmlFor="difficulty">Difficulty (1-5):</label>
         <input type="number" min="1" max="5" value={difficulty} onChange={ updateDifficulty }/>
       </div>
+      
+      <div className='complete-container'>
+        <label>Complete?</label>
+        <input type="checkbox" id="complete" checked={complete} onChange={ () => {setComplete(!complete)} }/>
+      </div>
+
 
       <button type="submit" onClick={ updateList }>Submit</button>
     </div>
