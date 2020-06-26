@@ -19,7 +19,7 @@ export default function ToDo() {
 
 
   return (
-    <div>
+    <div className='toDo'>
       <ToDoForm updateList={ setList } currentList={ list }/>
       <ToDoList list={ list }/>
     </div>

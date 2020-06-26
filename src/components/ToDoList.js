@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ToDoItem from './ToDoItem';
 
 export default function ToDoList(props) {
@@ -9,9 +9,9 @@ export default function ToDoList(props) {
   });
 
   return (
-    <div>
-      <h1>List</h1>
-      <div>
+    <div className='list-container'>
+      <h1>Your Tasks:</h1>
+      <div className='list'>
         { items }
       </div>
     </div>
