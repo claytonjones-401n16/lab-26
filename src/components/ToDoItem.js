@@ -2,17 +2,32 @@ import React, { useState } from 'react';
 
 export default function ToDoItem(props) {
 
-  const [complete, setComplete] = useState(props.item.complete);
+  const [taskComplete, setTaskComplete] = useState(props.item.complete);
 
 
   return (
     <div className="item">
-      <h1>Task</h1>
-      <div>Description: {props.item.description}</div>
-      <div>Assigned To: {props.item.assignedTo}</div>
-      <label htmlFor="complete">Complete:</label>
-      <input type="checkbox" checked={complete} onChange={() => { setComplete(!complete) }}/>
-      <div>Difficulty: {props.item.difficulty}</div>
+      
+      <div className="description">
+        <p className="title">Description: </p>
+        <p className="text">{props.item.description}</p>
+      </div>
+
+      <div className="assigned-to">
+        <p className="title">For: </p>
+        <p className="text">{props.item.assignedTo}</p>
+      </div>
+
+      <div className="difficulty">
+        <p className="title">Difficulty: </p>
+        <p className="text">{props.item.difficulty}</p>
+      </div>
+
+      <div className="complete">
+        <label className="title">Complete:</label>
+        <input type="checkbox" checked={taskComplete} onChange={() => { setTaskComplete(!taskComplete) }}/>
+      </div>
+
     </div>
   )
 }
