@@ -28,7 +28,8 @@ export default function ToDoForm(props) {
       complete,
       difficulty
     }
-    props.setList([...props.list, task]);
+
+    props.updateList([...props.currentList, task]);
   }
 
   return (
