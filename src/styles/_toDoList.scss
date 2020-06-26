@@ -1,0 +1,25 @@
+
+
+.list-container {
+  outline: solid red 1px;
+  height: 75%;
+  overflow: scroll;
+  scroll-behavior: smooth;
+
+  .list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    text-align: center;
+    max-height: 325px;
+    width: 80%;
+    margin: auto;
+    overflow: scroll;
+    scroll-behavior: smooth;
+
+    .item {
+      width: 50%;
+    }
+  }
+}
