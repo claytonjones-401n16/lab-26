@@ -20,12 +20,12 @@ footer {
   }
 
   img {
-    background-color: $main-background;
+    background-color: $img-background;
     padding: 2px;
     margin: 0 1rem;
 
-    &:hover {
-      background-color: $white;
-    }
+  }
+  img:hover {
+    background-color: $white;
   }
 }
