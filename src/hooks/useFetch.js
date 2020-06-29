@@ -20,24 +20,23 @@ export default function useFetch() {
         let res = await fetch(request.url, {
           method: request.method,
           body: request.body || null,
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application: json' },
+          headers: { 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json' },
           mode: 'cors'
         });
-        console.log(request.method,'res:', res);
 
         await setIsLoading(false);
     
-        if (res.status >= 300) {
-          
-          console.log('ERROR?');
+        if (res.status >= 300) {          
           await setError(res);
           return;
+        } else {
+
+          await setResponse(await res.json());
         }
   
-        await setResponse(await res.json());
 
       } catch(e) {
-        console.log(e);
+        console.log('fetch error:', e);
         await setError(e);
       }
   

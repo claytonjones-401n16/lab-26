@@ -39,7 +39,6 @@ export default function ToDo() {
   }, [list])
 
   useEffect(() => {
-    console.log('response:', response)
     if (response) {
       setList(response);
     }
