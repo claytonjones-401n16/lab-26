@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import useForm from '../hooks/useForm';
 import useFetch from '../hooks/useFetch';
 
@@ -6,8 +6,8 @@ export default function ToDoForm(props) {
 
   // const [ formData, setFormData ] = useState({});
   
-  const { handleSubmit, onChange, values } = useForm(updateList);
-  const { setRequest, isLoading, error, response } = useFetch();
+  const { onChange, values } = useForm(updateList);
+  const { setRequest, error} = useFetch();
 
 
   async function updateList(values) {

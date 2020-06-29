@@ -7,7 +7,7 @@ import useFetch from '../hooks/useFetch';
 export default function ToDo() {
 
   const [ list, setList ] = useState([]);
-  const { setRequest, isLoading, error, response } = useFetch();
+  const { setRequest, response } = useFetch();
 
   useEffect(() => {
     let req = {

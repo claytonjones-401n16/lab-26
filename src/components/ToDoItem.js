@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 import useFetch from '../hooks/useFetch';
-import useForm from '../hooks/useForm';
+// import useForm from '../hooks/useForm';
 
 export default function ToDoItem(props) {
 
   const [taskComplete, setTaskComplete] = useState(props.item.complete);
 
-  const { setRequest, response } = useFetch();
+  const { setRequest } = useFetch();
 
 
   // const { onChange } = useForm(updateTask);
   useEffect(() => {
-    let task = {...props.item, complete: taskComplete }
+    // let task = {...props.item, complete: taskComplete }
 
     // async function updateTask() {
     //   await setRequest({
