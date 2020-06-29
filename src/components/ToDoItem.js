@@ -23,7 +23,7 @@ export default function ToDoItem(props) {
       await setRequest({
         url: `https://todo-server-401n16.herokuapp.com/api/v1/todo/${props.item._id}`,
         method: 'PUT',
-        body: JSON.stringify(task)
+        body: task
       })
     }
 

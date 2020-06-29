@@ -17,10 +17,13 @@ export default function useFetch() {
   
       try {
         console.log('fetching...');
+
+        console.log('request:', request);
+
         let res = await fetch(request.url, {
           method: request.method,
-          body: request.body || null,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json' },
+          body: JSON.stringify(request.body) || null,
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           mode: 'cors'
         });
 

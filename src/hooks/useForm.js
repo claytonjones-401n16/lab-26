@@ -11,7 +11,7 @@ export default function useForm(callback) {
 
   function onChange(e) {
     e.persist();
-    setValues({ ...values, [e.target.name]: [e.target.value]})
+    setValues({ ...values, [e.target.name]: e.target.value})
   }
 
   return {

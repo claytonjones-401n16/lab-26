@@ -14,20 +14,41 @@ export default function ToDoForm(props) {
 
 
   async function updateList(values) {
+    console.log('values:', values);
     let task = {
       text: values.task || '',
       assignee: values.assignee || '',
-      complete: values.complete || false,
+      complete: values.complete === 'on' ? true : false || false,
       difficulty: values.difficulty || 1
     }
 
+    console.log('task to add:', task);
     await props.updateList([...props.currentList, task]);
 
     await setRequest({ 
       url: 'https://todo-server-401n16.herokuapp.com/api/v1/todo',
       method: 'POST',
-      body: JSON.stringify(task)
+      body: task
     });
+
+    // let res = await fetch(
+    //   "https://todo-server-401n16.herokuapp.com/api/v1/todo",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       assignee: "Billy Biggs",
+    //       difficulty: 3,
+    //       complete: false,
+    //       text: "My sample test"
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Accept: "application/json"
+    //     }
+    //   }
+    // );
+
+    // console.log('todoform res:', res);
 
     if (error) console.log('error:', error);
   }
