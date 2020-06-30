@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 
 import useFetch from '../hooks/useFetch';
 // import useForm from '../hooks/useForm';
@@ -9,22 +9,8 @@ export default function ToDoItem(props) {
 
   // const [put, setPut] = useState(false);
 
-  const { setRequest, response } = useFetch();
+  const { setRequest } = useFetch();
 
-
-  // useEffect(() => {
-  //   async function getRequest() {
-  //     const getRequest = {
-  //       url: `https://todo-server-401n16.herokuapp.com/api/v1/todo/`,
-  //       method: 'GET'
-  //     }
-
-  //     await props.setRequest(getRequest);
-  //   }
-  //   if (response) {
-  //     getRequest();
-  //   }
-  // }, [response, props])
   
   async function updateTask() {
     let task = {...props.item, complete: !taskComplete };
