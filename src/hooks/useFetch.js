@@ -27,6 +27,8 @@ export default function useFetch() {
           mode: 'cors'
         });
 
+        console.log('response:', res);
+
         await setIsLoading(false);
     
         if (res.status >= 300) {          

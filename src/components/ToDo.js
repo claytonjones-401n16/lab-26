@@ -46,8 +46,8 @@ export default function ToDo() {
 
   return (
     <div className='toDo'>
-      <ToDoForm updateList={ setList } currentList={ list }/>
-      <ToDoList list={ list }/>
+      <ToDoForm updateList={ setList } currentList={ list } setRequest={ setRequest }/>
+      <ToDoList list={ list } setRequest={ setRequest }/>
     </div>
   )
 }

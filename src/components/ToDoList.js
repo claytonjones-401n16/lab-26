@@ -5,7 +5,7 @@ export default function ToDoList(props) {
   let items = [];
   
   props.list.forEach( (item, i) => {
-    items.push(<ToDoItem item={item} key={i}/>)
+    items.push(<ToDoItem item={item} key={i} setRequest={ props.setRequest }/>)
   });
 
   return (

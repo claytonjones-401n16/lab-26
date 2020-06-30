@@ -31,24 +31,13 @@ export default function ToDoForm(props) {
       body: task
     });
 
-    // let res = await fetch(
-    //   "https://todo-server-401n16.herokuapp.com/api/v1/todo",
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       assignee: "Billy Biggs",
-    //       difficulty: 3,
-    //       complete: false,
-    //       text: "My sample test"
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json"
-    //     }
-    //   }
-    // );
+    let getRequest = {
+      url: 'https://todo-server-401n16.herokuapp.com/api/v1/todo',
+      method: 'GET'
+    }
 
-    // console.log('todoform res:', res);
+    await props.setRequest( getRequest );
+
 
     if (error) console.log('error:', error);
   }

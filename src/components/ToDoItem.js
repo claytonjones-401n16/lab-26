@@ -9,32 +9,49 @@ export default function ToDoItem(props) {
 
   // const [put, setPut] = useState(false);
 
-  const { setRequest } = useFetch();
+  const { setRequest, response } = useFetch();
 
 
-  // const { onChange } = useForm();
+  // useEffect(() => {
+  //   async function getRequest() {
+  //     const getRequest = {
+  //       url: `https://todo-server-401n16.herokuapp.com/api/v1/todo/`,
+  //       method: 'GET'
+  //     }
 
-  // use this boolean to prevent updateTask from running on first render in useEffect
-  const firstUpdate = useRef(true);
+  //     await props.setRequest(getRequest);
+  //   }
+  //   if (response) {
+  //     getRequest();
+  //   }
+  // }, [response, props])
   
-  useEffect(() => {
-    async function updateTask() {
-      let task = {...props.item, complete: taskComplete };
-      await setRequest({
-        url: `https://todo-server-401n16.herokuapp.com/api/v1/todo/${props.item._id}`,
-        method: 'PUT',
-        body: task
-      })
-    }
+  async function updateTask() {
+    let task = {...props.item, complete: !taskComplete };
+    await setRequest({
+      url: `https://todo-server-401n16.herokuapp.com/api/v1/todo/${props.item._id}`,
+      method: 'PUT',
+      body: task
+    });
 
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
+    await setTaskComplete(!taskComplete);
+  }
 
-    updateTask();
-  
-  }, [taskComplete, props.item, setRequest])
+
+  async function deleteTask() {
+    await setRequest({
+      url: `https://todo-server-401n16.herokuapp.com/api/v1/todo/${props.item._id}`,
+      method: 'DELETE'
+    });
+
+    const getRequest = {
+            url: `https://todo-server-401n16.herokuapp.com/api/v1/todo/`,
+            method: 'GET'
+    
+          }
+    await props.setRequest( getRequest );
+    await props.setRequest( getRequest );
+  }
 
 
 
@@ -58,8 +75,10 @@ export default function ToDoItem(props) {
 
       <div className="complete">
         <label className="title">Complete:</label>
-        <input type="checkbox" checked={taskComplete} onChange={async () => { await setTaskComplete(!taskComplete) }}/>
+        <input type="checkbox" checked={taskComplete} onChange={async () => { await updateTask() }}/>
       </div>
+
+      <button className="deleteTask" type="button" onClick={async () => { await deleteTask(); }}>DELETE</button>
 
     </div>
   )
