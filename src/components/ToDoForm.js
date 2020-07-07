@@ -1,59 +1,69 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useForm from '../hooks/useForm';
+import useFetch from '../hooks/useFetch';
+
+// 'https://cf-js-401-api-server.herokuapp.com/api/v1/todo'
+// 'https://todo-server-401n16.herokuapp.com/api/v1/todo'
 
 export default function ToDoForm(props) {
-  const [ description, setDescription ] = useState('');
-  const [ assignedTo, setAssignedTo ] = useState('');
-  const [ complete, setComplete ] = useState(false);
-  const [ difficulty, setDifficulty ] = useState(1);
 
-  function updateDifficulty(e) {
-    if (e.target.value > 5) {
-      setDifficulty(5);
-    }
+  // const [ formData, setFormData ] = useState({});
+  
+  const { onChange, values } = useForm(updateList);
+  const { setRequest, error} = useFetch();
 
-    else if (e.target.value < 1) {
-      setDifficulty(1);
-    }
 
-    else {
-      setDifficulty(e.target.value);
-    }
-
-  }
-
-  function updateList() {
+  async function updateList(values) {
+    console.log('values:', values);
     let task = {
-      description,
-      assignedTo,
-      complete,
-      difficulty
+      text: values.task || '',
+      assignee: values.assignee || '',
+      complete: values.complete === 'on' ? true : false || false,
+      difficulty: values.difficulty || 1
     }
 
-    props.updateList([...props.currentList, task]);
+    console.log('task to add:', task);
+    await props.updateList([...props.currentList, task]);
+
+    await setRequest({ 
+      url: 'https://todo-server-401n16.herokuapp.com/api/v1/todo',
+      method: 'POST',
+      body: task
+    });
+
+    let getRequest = {
+      url: 'https://todo-server-401n16.herokuapp.com/api/v1/todo',
+      method: 'GET'
+    }
+
+    await props.setRequest( getRequest );
+
+
+    if (error) console.log('error:', error);
   }
 
   return (
     <div id="form">
       <label htmlFor="task">Task:</label>
-      <textarea name="task" id="task" onChange={ (e) => { setDescription(e.target.value) } } value={description}></textarea>
+      <textarea name="task" id="task" onChange={ onChange } ></textarea>
 
       <div className="assigned-container">
         <label htmlFor="assigned-to">Assigned To:</label>
-        <input type="text" id="assigned-to" autoComplete="off" value={assignedTo} onChange={ (e) => { setAssignedTo(e.target.value) } }/>
+        <input type="text" name="assignee" id="assigned-to" autoComplete="off" onChange={ onChange }/>
       </div>
       
       <div className="difficulty-container">
         <label htmlFor="difficulty">Difficulty (1-5):</label>
-        <input type="number" min="1" max="5" value={difficulty} onChange={ updateDifficulty }/>
+        <input type="range" id="difficulty" name="difficulty" min="1" max="5" onChange={ onChange }/>
       </div>
       
       <div className='complete-container'>
         <label>Complete?</label>
-        <input type="checkbox" id="complete" checked={complete} onChange={ () => {setComplete(!complete)} }/>
+        <input type="checkbox" id="complete" name="complete" onChange={ onChange }/>
       </div>
 
 
-      <button type="submit" onClick={ updateList }>Submit</button>
+      <button type="submit" onClick={ async() => {updateList(values)} }>Submit</button>
     </div>
   )
 }
